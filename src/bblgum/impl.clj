@@ -18,10 +18,11 @@
 
 (defn exec
   [cmd in-stream out-stream]
-  (let [{:keys [exit out]} @(p/process cmd
-                                       {:out out-stream
-                                        :in  (or in-stream :inherit)
-                                        :err :inherit})
+  (let [{:keys [exit out]} @(apply p/process
+                                   {:out out-stream
+                                    :in  (or in-stream :inherit)
+                                    :err :inherit}
+                                   cmd)
         result             {:exit exit}
         result             (if (= :inherit out-stream)
                              result

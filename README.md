@@ -9,7 +9,7 @@ This is intended for [babashka](https://babashka.org/) and JVM clojure and provi
 
 ## Requirements
 - Gum should be [installed](https://github.com/charmbracelet/gum#installation)
-- Babashka or the CLojure JVM runtime, latest recommended
+- Babashka or the Clojure JVM runtime, latest recommended
 
 ## Usage
 
