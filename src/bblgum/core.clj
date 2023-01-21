@@ -9,7 +9,7 @@
   opts: A map of options to be passed as optional params to gum
   args: A vec of args to be passed as positional params to gum
   in: An input stream than can be passed to gum
-  as: Coerce the output. Currently supports :bool or defaults to a seq of strings
+  as: Coerce the output. Currently supports :bool, :ignored or defaults to a seq of strings
   gum-path: Path to the gum binary. Defaults to gum
 
   Returns a map of:
@@ -21,7 +21,10 @@
                                 (map (fn [[opt value]]
                                        (str "--" (i/->str opt) "=" (i/multi-opt value))))
                                 (into [gum-path (i/->str cmd)]))
-        {:keys [exit out]} (i/exec (into with-opts args) in)]
+        out                (if (= :ignored as)
+                             :inherit
+                             :string)
+        {:keys [exit out]} (i/exec (into with-opts args) in out)]
     {:status exit
      :result (case as
                :bool (zero? exit)

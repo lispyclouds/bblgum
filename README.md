@@ -23,12 +23,14 @@ Add this to your `bb.edn` or `deps.edn`:
 This follows the same [section](https://github.com/charmbracelet/gum#interaction) on the gum repo and all params should work verbatim.
 Run `gum <cmd> --help` to discover all the params and args.
 
+This lib only has _one_ public fn: `bblgum.core/gum`. This is possibly the tiniest clojure lib!
+
 Convention:
 - The main command should be passed as a keyword or string to `:cmd`. Required
 - The --opts are to be passed as `:opts`
 - All positional args to be passed as `:args`. Pass boolean flags like `--password` as `{:password true}`. Use the full forms of the opts: `--spinner` not `-s`
 - An input stream can be passed to `:in`. Useful for commands like [filter](https://github.com/charmbracelet/gum#filter)
-- Corece the input by passing `:as :bool`. Useful for commands like [confirm](https://github.com/charmbracelet/gum#confirm). Defaults to a seq of strings
+- Corece the input by passing `:as :bool` or ignore it with `:ignored`. `:bool` is useful for commands like [confirm](https://github.com/charmbracelet/gum#confirm) and `:ignored` is useful for [pager](https://github.com/charmbracelet/gum#pager) Defaults to a seq of strings
 - Override the default gum path of `gum` by passing it via `:gum-path`
 
 The `gum` fn returns a map of exit status of calling gum and the result either as a seq of lines or coerced via `:as`.
@@ -72,7 +74,9 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 
 ### pager
 
-TODO
+```clojure
+(b/gum {:cmd :pager :as :ignored :in (clojure.java.io/input-stream "README.md")})
+```
 
 ### spin
 
@@ -82,7 +86,9 @@ TODO
 
 ### table
 
-TODO
+```clojure
+(b/gum {:cmd :table :in (clojure.java.io/input-stream "flavours.csv") :as :ignored})
+```
 
 All of the rest of the options and usecases should be supported. Please raise issues/PRs for any improvements. Much appreciated!
 
