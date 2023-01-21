@@ -27,8 +27,12 @@ This lib only has _one_ public fn: `bblgum.core/gum`. This is possibly the tinie
 
 Convention:
 - The main command should be passed as a keyword or string to `:cmd`. Required
-- The --opts are to be passed as `:opts`. Use the full forms of the opts: `--spinner` not `-s`. Seqs can be passed to opts taking multiple params as well
-- All positional args to be passed as `:args`. Pass boolean flags like `--password` as `{:password true}`.
+- Passing opts:
+  - The --opts are to be passed as `:opts`
+  - Use the full forms of the opts: `--spinner` not `-s`
+  - Seqs can be passed to opts taking multiple params as well
+  - Pass boolean flags like `--password` as `{:password true}`
+- All positional args to be passed as `:args`.
 - An input stream can be passed to `:in`. Useful for commands like [filter](https://github.com/charmbracelet/gum#filter)
 - Corece the input by passing `:as :bool` or ignore it with `:ignored`. `:bool` is useful for commands like [confirm](https://github.com/charmbracelet/gum#confirm) and `:ignored` is useful for [pager](https://github.com/charmbracelet/gum#pager) Defaults to a seq of strings
 - Override the default gum path of `gum` by passing it via `:gum-path`
