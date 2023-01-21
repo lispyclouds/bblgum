@@ -24,6 +24,9 @@
         out                (if (= :ignored as)
                              :inherit
                              :string)
+        args               (if (empty? args)
+                             args
+                             (cons "--" args))
         {:keys [exit out]} (i/exec (into with-opts args) in out)]
     {:status exit
      :result (case as
