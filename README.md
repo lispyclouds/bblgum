@@ -63,7 +63,7 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 ### confirm
 
 ```clojure
-(b/gum {:cmd :confirm})
+(b/gum {:cmd :confirm :as :bool})
 ```
 
 ### file
