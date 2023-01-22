@@ -108,8 +108,7 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 
 ```clojure
 (b/gum {:cmd :table
-        :in  (clojure.java.io/input-stream "flavours.csv")
-        :as  :ignored})
+        :in  (clojure.java.io/input-stream "flavours.csv")})
 ```
 
 All of the rest of the options and usecases _should work_ ™. Please raise issues/PRs for any improvements. Much appreciated!
