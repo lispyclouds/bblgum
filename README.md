@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://choosealicense.com/licenses/mit/)
 [![bb compatible](https://raw.githubusercontent.com/babashka/babashka/master/logo/badge.svg)](https://babashka.org)
 
-An _extremely tiny and simple_ wrapper around the awesome [gum](https://github.com/charmbracelet/gum) tool.
+An _extremely tiny and simple_ wrapper around the awesome [gum](https://github.com/charmbracelet/gum).
 
 This is intended for [babashka](https://babashka.org/) and JVM clojure and provides an idiomatic and data driven wrapper around the CLI tool.
 
@@ -34,7 +34,12 @@ Convention:
   - Pass boolean flags like `--password` as `{:password true}`
 - All positional args to be passed as `:args`.
 - An input stream can be passed to `:in`. Useful for commands like [filter](https://github.com/charmbracelet/gum#filter)
-- Corece the input by passing `:as :bool` or ignore it with `:ignored`. `:bool` is useful for commands like [confirm](https://github.com/charmbracelet/gum#confirm) and `:ignored` is useful for [pager](https://github.com/charmbracelet/gum#pager) Defaults to a seq of strings
+- Corece the output:
+  - By passing `:as :bool`
+  - Ignore it with `:ignored`
+  - `:bool` is useful for commands like [confirm](https://github.com/charmbracelet/gum#confirm)
+  - `:ignored` is useful for [pager](https://github.com/charmbracelet/gum#pager). Ignoring the parsing of the output helps the pager actually draw things
+  - Defaults to a seq of strings
 - Override the default gum path of `gum` by passing it via `:gum-path`
 
 The `gum` fn returns a map of exit status of calling gum and the result either as a seq of lines or coerced via `:as`.
@@ -47,7 +52,8 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 ### input
 
 ```clojure
-(b/gum {:cmd :input :opts {:password true}})
+(b/gum {:cmd  :input
+        :opts {:password true}})
 ```
 
 ### write
@@ -59,42 +65,54 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 ### filter
 
 ```clojure
-(b/gum {:cmd :filter :in (clojure.java.io/input-stream "flavours.txt")})
+(b/gum {:cmd :filter
+        :in  (clojure.java.io/input-stream "flavours.txt")})
 
-(b/gum {:cmd :filter :in (clojure.java.io/input-stream "flavours.txt") :opts {:no-limit true}})
+(b/gum {:cmd  :filter
+        :in   (clojure.java.io/input-stream "flavours.txt")
+        :opts {:no-limit true}})
 ```
 
 ### confirm
 
 ```clojure
-(b/gum {:cmd :confirm :as :bool})
+(b/gum {:cmd :confirm
+        :as  :bool})
 ```
 
 ### file
 
 ```clojure
-(b/gum {:cmd :file :args ["src"]})
+(b/gum {:cmd  :file
+        :args ["src"]})
 ```
 
 ### pager
 
 ```clojure
-(b/gum {:cmd :pager :as :ignored :in (clojure.java.io/input-stream "README.md")})
+(b/gum {:cmd :pager
+        :as  :ignored
+        :in  (clojure.java.io/input-stream "README.md")})
 ```
 
 ### spin
 
 ```clojure
-(b/gum {:cmd :spin :args ["sleep" "5"] :opts {:spinner "line" :title "Buying Bubble Gum..."}})
+(b/gum {:cmd  :spin
+        :args ["sleep" "5"]
+        :opts {:spinner "line"
+               :title   "Buying Bubble Gum..."}})
 ```
 
 ### table
 
 ```clojure
-(b/gum {:cmd :table :in (clojure.java.io/input-stream "flavours.csv") :as :ignored})
+(b/gum {:cmd :table
+        :in  (clojure.java.io/input-stream "flavours.csv")
+        :as  :ignored})
 ```
 
-All of the rest of the options and usecases should be supported. Please raise issues/PRs for any improvements. Much appreciated!
+All of the rest of the options and usecases _should work_ ™. Please raise issues/PRs for any improvements. Much appreciated!
 
 ## License
 
