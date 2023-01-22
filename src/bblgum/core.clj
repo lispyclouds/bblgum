@@ -13,7 +13,7 @@
   gum-path: Path to the gum binary. Defaults to gum
 
   Returns a map of:
-  status: The exit code from gum.
+  status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   [{:keys [cmd opts args in as gum-path]}]
   (let [gum-path           (or gum-path "gum")

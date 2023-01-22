@@ -18,18 +18,19 @@
 
 (defn exec
   [cmd in-stream out-stream]
-  (let [{:keys [exit out]} @(apply p/process
-                                   {:out out-stream
-                                    :in  (or in-stream :inherit)
-                                    :err :inherit}
-                                   cmd)
+  (let [{:keys [exit out]} (apply p/shell
+                                  {:out      out-stream
+                                   :in       (or in-stream :inherit)
+                                   :err      :inherit
+                                   :continue true}
+                                  cmd)
         result             {:exit exit}
-        result             (if (= :inherit out-stream)
-                             result
+        result             (if (= :string out-stream)
                              (assoc result
                                     :out
                                     (->> out
                                          str/trim
                                          str/split-lines
-                                         (filter seq))))]
+                                         (filter seq)))
+                             result)]
     result))
