@@ -15,7 +15,7 @@ This is intended for [babashka](https://babashka.org/) and JVM clojure and provi
 
 Add this to your `bb.edn` or `deps.edn`:
 ```edn
-{:deps {io.github.lispyclouds/bblgum {:git/sha "50dacce8fb72f9836c525ad7d5484834267f38da"}}}
+{:deps {io.github.lispyclouds/bblgum {:git/sha "8b871f9c97628a2efee74f088527050cda895d1a"}}}
 ```
 
 ## Interaction
