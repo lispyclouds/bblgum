@@ -24,13 +24,12 @@
                                    :err      :inherit
                                    :continue true}
                                   cmd)
-        result             {:exit exit}
-        result             (if (= :string out-stream)
-                             (assoc result
-                                    :out
-                                    (->> out
-                                         str/trim
-                                         str/split-lines
-                                         (filter seq)))
-                             result)]
-    result))
+        result             {:exit exit}]
+    (if (= :string out-stream)
+      (assoc result
+             :out
+             (->> out
+                  str/trim
+                  str/split-lines
+                  (filter seq)))
+      result)))
