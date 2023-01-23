@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://choosealicense.com/licenses/mit/)
 [![bb compatible](https://raw.githubusercontent.com/babashka/babashka/master/logo/badge.svg)](https://babashka.org)
 
-An _extremely tiny and simple_ wrapper around the awesome [gum](https://github.com/charmbracelet/gum).
+An _extremely_ tiny and simple wrapper around the awesome [gum](https://github.com/charmbracelet/gum).
 
 This is intended for [babashka](https://babashka.org/) and JVM clojure and provides an idiomatic and data driven wrapper around the CLI tool.
 
@@ -35,8 +35,8 @@ Convention:
 - All positional args to be passed as `:args`.
 - An input stream can be passed to `:in`. Useful for commands like [filter](https://github.com/charmbracelet/gum#filter)
 - Corece the output:
-  - By passing `:as :bool`
-  - Ignore it with `:ignored`
+  - Treat non-zero exit codes from gum as a booleans passing `:as :bool`
+  - Ignore it with `:ignored`. This ignores parsing of the stdout
   - `:bool` is useful for commands like [confirm](https://github.com/charmbracelet/gum#confirm)
   - `:ignored` is useful for [pager](https://github.com/charmbracelet/gum#pager). Ignoring the parsing of the output helps the pager actually draw things
   - Defaults to a seq of strings

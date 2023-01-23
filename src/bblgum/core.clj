@@ -16,6 +16,9 @@
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   [{:keys [cmd opts args in as gum-path]}]
+  (when-not cmd
+    (throw (IllegalArgumentException. ":cmd must be provided or non-nil")))
+
   (let [gum-path           (or gum-path "gum")
         with-opts          (->> opts
                                 (map (fn [[opt value]]
