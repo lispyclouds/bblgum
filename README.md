@@ -18,6 +18,12 @@ Add this to your `bb.edn` or `deps.edn`:
 {:deps {io.github.lispyclouds/bblgum {:git/sha "da049b2bf1bd7dad1c8296fd97c34e9401707719"}}}
 ```
 
+Sample babashka usage:
+```console
+$ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "da049b2bf1bd7dad1c8296fd97c34e9401707719"}}}' \
+     -e "(require '[bblgum.core :as b]) (b/gum {:cmd :input :opts {:placeholder \"User name:\"}})"
+```
+
 ## Interaction
 
 This follows the same [section](https://github.com/charmbracelet/gum#interaction) on the gum repo and all params should work verbatim.
