@@ -119,6 +119,10 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 
 All of the rest of the options and usecases _should work_ ™. Please raise issues/PRs for any improvements. Much appreciated!
 
+## Caveats
+
+- Since this uses gum which expects an interactive TTY like terminal, this is quite hard or not possible to be used from an editor based REPL like Conjure, CIDER, Calva etc. This works as expected from a terminal repl like `bb repl` or `lein repl`.
+
 ## License
 
 Copyright © 2023- Rahul De.
