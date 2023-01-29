@@ -121,7 +121,11 @@ All of the rest of the options and usecases _should work_ ™. Please raise issu
 
 ## Caveats
 
-- Since this uses gum which expects an interactive TTY like terminal, this is quite hard or not possible to be used from an editor based REPL like Conjure, CIDER, Calva etc. This works as expected from a terminal repl like `bb repl` or `lein repl`.
+- Since this uses gum which expects an interactive TTY like terminal, this is not possible to be used from editor REPLs like Conjure, CIDER, Calva etc **when jacked-in**.
+  To use this from an editor REPL:
+    - First start the REPL in a terminal, for example in bb for nREPL on port 1667: `bb nrepl-server 1667`.
+    - Connect to the port from the editor of your choice, for example with neovim and conjure: `:ConjureConnect 1667`.
+    - Perform the usual REPL interactions and all the gum output would appear on the terminal and not your editor but the result should be on the editor as expected.
 
 ## License
 
