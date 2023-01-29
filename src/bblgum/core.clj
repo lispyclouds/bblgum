@@ -19,18 +19,15 @@
   (when-not cmd
     (throw (IllegalArgumentException. ":cmd must be provided or non-nil")))
 
-  (let [gum-path           (or gum-path "gum")
-        with-opts          (->> opts
-                                (map (fn [[opt value]]
-                                       (str "--" (i/->str opt) "=" (i/multi-opt value))))
-                                (into [gum-path (i/->str cmd)]))
-        out                (if (= :ignored as)
-                             :inherit
-                             :string)
-        args               (if (or (empty? args)
-                                   (= "--" (first args)))
-                             args
-                             (cons "--" args))
+  (let [gum-path (or gum-path "gum")
+        with-opts (->> opts
+                       (map (fn [[opt value]]
+                              (str "--" (i/->str opt) "=" (i/multi-opt value))))
+                       (into [gum-path (i/->str cmd)]))
+        out (if (= :ignored as) :inherit :string)
+        args (if (or (empty? args) (= "--" (first args)))
+               args
+               (cons "--" args))
         {:keys [exit out]} (i/exec (into with-opts args) in out)]
     {:status exit
      :result (case as

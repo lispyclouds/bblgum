@@ -1,8 +1,8 @@
 (ns bblgum.impl
   "Internal fns, not intended for public use"
   (:require
-    [babashka.process :as p]
-    [clojure.string :as str]))
+   [babashka.process :as p]
+   [clojure.string :as str]))
 
 (defn ->str
   [thing]
@@ -19,12 +19,12 @@
 (defn exec
   [cmd in-stream out-stream]
   (let [{:keys [exit out]} (apply p/shell
-                                  {:out      out-stream
-                                   :in       (or in-stream :inherit)
-                                   :err      :inherit
+                                  {:out out-stream
+                                   :in (or in-stream :inherit)
+                                   :err :inherit
                                    :continue true}
                                   cmd)
-        result             {:exit exit}]
+        result {:exit exit}]
     (if (= :string out-stream)
       (assoc result
              :out
