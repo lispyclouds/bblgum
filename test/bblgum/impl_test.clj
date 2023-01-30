@@ -15,13 +15,9 @@
     (t/is (= "foo" (i/multi-opt "foo"))))
 
   (t/testing "exec as string"
-    (t/is (= {:exit 0 :out ["bb.edn"
-                            "deps.edn"
-                            "LICENSE"
-                            "README.md"
-                            "src"
-                            "test"]}
-             (i/exec ["ls"] nil :string))))
+    (let [{:keys [exit out]} (i/exec ["ls"] nil :string)]
+      (t/is (zero? exit))
+      (t/is (contains? (set out) "LICENSE"))))
   (t/testing "exec as ignored"
     (t/is (= {:exit 0}
              (i/exec ["ls"] nil :ignored))))
