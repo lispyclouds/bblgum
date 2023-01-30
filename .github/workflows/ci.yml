@@ -13,13 +13,13 @@ jobs:
       - name: "Checkout code"
         uses: "actions/checkout@v3"
 
-      - name: "Prepare Java"
+      - name: "Setup Java"
         uses: "actions/setup-java@v3"
         with:
           distribution: "temurin"
           java-version: "19"
 
-      - name: "Prepare Clojure CLI"
+      - name: "Setup Clojure"
         uses: "DeLaGuardo/setup-clojure@master"
         with:
           cli: "latest"
@@ -30,6 +30,7 @@ jobs:
         with:
           path: |
             ~/.m2/repository
+            ~/.gitlibs
           key: "bblgum-${{ hashFiles('deps.edn') }}"
           restore-keys: "$bblgum-"
 
