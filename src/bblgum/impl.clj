@@ -23,13 +23,10 @@
                                    :in (or in-stream :inherit)
                                    :err :inherit
                                    :continue true}
-                                  cmd)
-        result {:exit exit}]
-    (if (= :string out-stream)
-      (assoc result
-             :out
-             (->> out
-                  str/trim
-                  str/split-lines
-                  (filter seq)))
-      result)))
+                                  cmd)]
+    (cond-> {:exit exit}
+      (= :string out-stream)
+      (assoc :out (->> out
+                       str/trim
+                       str/split-lines
+                       (filter seq))))))
