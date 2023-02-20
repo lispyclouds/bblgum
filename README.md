@@ -52,6 +52,14 @@ The `gum` fn returns a map of exit status of calling gum and the result either a
 Exceptions are not thrown unless calling gum itself does, the status code is intended for programming for failures.
 
 ```clojure
+(b/gum {:cmd :choose
+        :opts {:no-limit true}
+        :args ["foo" "bar" "baz"]})
+
+{:status 0 :result ("foo" "baz")}
+```
+
+```clojure
 (require '[bblgum.core :as b])
 ```
 
