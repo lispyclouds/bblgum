@@ -145,7 +145,7 @@ You can also use the gum like this:
 (b/gum :choose [\"foo\" \"bar\"] {:header \"select a foo\"})
 
 ;; Calling a command with opts only:
-(b/gum :file [] {:directory true})
+(b/gum :file [] :opts {:directory true})
 
 ;; Calling commands the v1 way:
 (gum {:cmd :file :args ["src"] :opts {:directory true}})
