@@ -39,8 +39,11 @@
    (if (map? cmd)
      cmd
      (prepare-cmd-map cmd [] {})))
-  ([cmd args]
-   (prepare-cmd-map cmd args {}))
+  ([cmd args-or-opts]
+   (if (map? args-or-opts)
+     (prepare-cmd-map cmd [] args-or-opts)
+     (prepare-cmd-map cmd args-or-opts {}))
+)
   ([cmd args options]
    (merge  {:cmd cmd :args args} options)))
 
@@ -49,8 +52,14 @@
   (prepare-cmd-map :file)                                                  ;; => {:cmd :file, :args []}
   (prepare-cmd-map :choose ["foo" "bar"])                                  ;; => {:cmd :choose, :args ["foo" "bar"]}
   (prepare-cmd-map :choose ["foo" "bar"] {:opts {:header "select a foo"}}) ;; => {:cmd :choose, :args ["foo" "bar"], :opts {:header "select a foo"}}
-  (prepare-cmd-map {:cmd :file :args ["src"] :opts {:directory true}})     ;; => {:cmd :file, :args ["src"], :opts {:directory true}}
-  (prepare-cmd-map {:cmd :table :in "some.in"})                            ;; => {:cmd :table, :in "some.in"}
+  (prepare-cmd-map {:cmd :file :args ["src"] :opts {:directory true}}) ;; => {:cmd :file, :args ["src"], :opts {:directory true}}
+  (prepare-cmd-map {:cmd :table :in "some.in"})                        ;; => {:cmd :table, :in "some.in"}
+
+  "The arity 2 example, only options"
+  (prepare-cmd-map :files {:opts {:directory true}}) ;; => {:cmd :files, :args [], :opts {:directory true}}
+
+  "The arity 2 exmaple, only args"
+  (prepare-cmd-map :choose ["foo" "bar"]) ;; => {:cmd :choose, :args ["foo" "bar"]}
   )
 
 (defn gum
@@ -77,14 +86,14 @@
     (gum :choose [\"foo\" \"bar\"] {:opts {:header \"select a foo\"}})
 
   Calling a command with opts only:
-    (gum :file [] {:opts {:directory true}}])
+    (gum :file {:opts {:directory true}}])
   
   Returns a map of:
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   ([cmd]
    (gumv1 (prepare-cmd-map cmd)))
-  ([cmd args]
-   (gumv1 (prepare-cmd-map cmd args)))
+  ([cmd args-or-opts]
+   (gumv1 (prepare-cmd-map cmd args-or-opts)))
   ([cmd args opts]
    (gumv1 (prepare-cmd-map cmd args opts))))
