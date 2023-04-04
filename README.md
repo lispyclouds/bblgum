@@ -51,6 +51,8 @@ Convention:
 The `gum` fn returns a map of exit status of calling gum and the result either as a seq of lines or coerced via `:as`.
 Exceptions are not thrown unless calling gum itself does, the status code is intended for programming for failures.
 
+There is also a simplified API described after examples. 
+
 ```clojure
 (b/gum {:cmd :choose
         :opts {:no-limit true}
@@ -126,6 +128,30 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 ```
 
 All of the rest of the options and usecases _should work_ ™. Please raise issues/PRs for any improvements. Much appreciated!
+
+## Simplified AP
+You can also use the gum like this:
+
+```clojure-version
+(require '[bblgum.core :as b])
+
+;; Calling command without any args or opts:
+(b/gum :file)
+
+;; Calling a command with args only:
+(b/gum :choose [\"foo\" \"bar\"])
+
+;; Calling a command with args and opts:
+(b/gum :choose [\"foo\" \"bar\"] {:header \"select a foo\"})
+
+;; Calling a command with opts only:
+(b/gum :file [] {:directory true})
+
+;; Calling commands the v1 way:
+(gum {:cmd :file :args ["src"] :opts {:directory true}})
+
+```
+
 
 ## Caveats
 
