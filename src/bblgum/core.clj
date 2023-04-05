@@ -1,7 +1,7 @@
 (ns bblgum.core
   (:require [bblgum.impl :as i]))
 
-(defn gum*
+(defn- gum*
   "Low level API. If you don't know why you are using `gum*` then you're probably looking for `gum`
 
   Options map:
@@ -18,7 +18,6 @@
   [{:keys [cmd opts args in as gum-path]}]
   (when-not cmd
     (throw (IllegalArgumentException. ":cmd must be provided or non-nil")))
-
   (let [gum-path (or gum-path "gum")
         with-opts (->> opts
                        (map (fn [[opt value]]
@@ -33,28 +32,6 @@
      :result (case as
                :bool (zero? exit)
                out)}))
-
-(defn- prepare-options [m]
-  (let [fmted-keys [:opts :in :as :gum-path]
-        fmted (select-keys m fmted-keys)
-        opts (apply dissoc m fmted-keys)]
-    (update fmted :opts merge opts)))
-
-(defn- prepare-cmd-map
-  "Prepares command map to be passed to `gum*`. Tries to be smart and figure out what user wants."
-  ([cmd]
-   (if (map? cmd)
-     cmd
-     (prepare-cmd-map cmd [] nil)))
-  ([cmd args-or-opts]
-   (if (vector? args-or-opts)
-     (prepare-cmd-map cmd args-or-opts nil)
-     (prepare-cmd-map cmd [] args-or-opts)))
-  ([cmd args & options]
-   (let [args* (if (vector? args) args [])
-         foptions (filter some? options)
-         options* (if (keyword? args) (conj foptions args) foptions)]
-     (merge {:cmd cmd :args args*} (if (seq options*) (prepare-options (apply hash-map options*)) {})))))
 
 (defn gum
   "High level gum API. Simpler in usage then `gum*`, but uses it under the hood.
@@ -89,22 +66,9 @@
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   ([cmd]
-   (gum* (prepare-cmd-map cmd)))
+   (gum* (i/prepare-cmd-map cmd)))
   ([cmd args-or-opts]
-   (gum* (prepare-cmd-map cmd args-or-opts)))
+   (gum* (i/prepare-cmd-map cmd args-or-opts)))
   ([cmd args & opts]
-   (gum* (apply prepare-cmd-map cmd args opts))))
+   (gum* (apply i/prepare-cmd-map cmd args opts))))
 
-(comment
-  "Testing examples"
-  (prepare-cmd-map :file)                                        ;; => {:cmd :file, :args []}
-  (prepare-cmd-map :file :directory true)                        ;; => {:cmd :file, :args [], :opts {:directory true}}
-  (prepare-cmd-map :choose ["foo" "bar"])                        ;; => {:cmd :choose, :args ["foo" "bar"]}
-  (prepare-cmd-map :choose ["foo" "bar"] :header "select a foo") ;; => {:cmd :choose, :args ["foo" "bar"], :opts {:header "select a foo"}}
-  (prepare-cmd-map {:cmd :file :args ["src"] :directory true})   ;; => {:cmd :file, :args ["src"], :directory true}
-  (prepare-cmd-map :table :in "some.in" :height 10) ;; => {:cmd :table, :args [], :in "some.in", :opts {:height 10}}
-  (prepare-cmd-map {:cmd :table :in "some.in"})     ;; => {:cmd :table, :in "some.in"}
-  (prepare-cmd-map :table :in "input" :height 10)   ;; => {:cmd :table, :args [], :in "input", :opts {:height 10}}
-  (prepare-cmd-map :confirm ["Are you sure?"] :as :bool :negative "Never" :affirmative "Always") ;; => {:cmd :confirm, :args ["Are you sure?"], :as :bool, :opts {:affirmative "Always", :negative "Never"}}
-  (gum :confirm ["Це той файл?"] :as :bool :negative "Щось ні" :affirmative "Так!")
-  )
