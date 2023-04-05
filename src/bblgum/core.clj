@@ -2,7 +2,7 @@
   (:require [bblgum.impl :as i]))
 
 (defn gum
-  "High level gum API. Simpler in usage then `gum*`, but uses it under the hood.
+  "Main driver of bblgum.
 
   You can call `gum` like this:
 
