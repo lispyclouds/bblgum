@@ -34,8 +34,8 @@
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   ([cmd]
-   (i/gum* (i/prepare-cmd-map cmd)))
+   (i/gum cmd))
   ([cmd args-or-opts]
-   (i/gum* (i/prepare-cmd-map cmd args-or-opts)))
+   (i/gum cmd args-or-opts))
   ([cmd args & opts]
-   (i/gum* (apply i/prepare-cmd-map cmd args opts))))
+   (apply i/gum cmd args opts)))
