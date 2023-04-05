@@ -73,7 +73,7 @@ Example with special options:
 
 #### input 
 ```clojure 
-p(b/gum :choose ["foo" "bar" "baz"] :no-limit true)
+(b/gum :choose ["foo" "bar" "baz"] :no-limit true)
 
 {:status 0 :result ("foo" "baz")}
 ```
