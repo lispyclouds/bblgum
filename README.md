@@ -29,7 +29,7 @@ $ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "7ebae0e2231899fe2a6
 This follows the same [section](https://github.com/charmbracelet/gum#interaction) on the gum repo and all params should work verbatim.
 Run `gum <cmd> --help` to discover all the params and args.
 
-This lib only has _one_ public fns: `bblgum.core/gum`.
+This lib only has _one_ public fn: `bblgum.core/gum`.
 
 ## Standard Usage
 `gum` tries to closely mimic the usage of the CLI tool, so it works like `(gum :COMMAND)`,
