@@ -29,7 +29,44 @@ $ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "7ebae0e2231899fe2a6
 This follows the same [section](https://github.com/charmbracelet/gum#interaction) on the gum repo and all params should work verbatim.
 Run `gum <cmd> --help` to discover all the params and args.
 
-This lib only has _one_ public fn: `bblgum.core/gum`. This is possibly the tiniest clojure lib!
+This lib only has _two_ public fns: `bblgum.core/gum*` (low-level API) and `bblgum.core/gum` (high-level API).
+
+## gum (high-level API)
+This uses `gum*` under the hood, but tries to save as much typing as it can.
+
+It tries to closely mimic the usage of the CLI tool, so it works like `(gum :COMMAND)`,
+`(gum :COMMAND [ARGS])` or `(gum :COMMAND [ARGS] :OPTION VALUE :OPTION2 VALUE)`
+
+Examples:
+```clojure 
+;; Command only:
+(gum :file)
+
+;; Command with args:
+(gum :choose ["arg1" "arg2"])
+
+;; Command with opts:
+(gum :file :directory true)
+
+;; Command with opts and args:
+(gum :choose ["arg1" "arg2"] :header "Choose an option")
+```
+
+There are several special opts, that are handled by the library:
+
+`:in` - An input stream than can be passed to gum
+`:as` - Coerce the output. Currently supports :bool, :ignored or defaults to a seq of strings
+`:gum-path` - Path to the gum binary. Defaults to `gum`
+
+All other opts are passed to the CLI. Consult `gum CMD --help` to see available options.  
+To pass flags like `--directory` use `:directory true`. Always use full names of the options.
+
+Example with special options:
+```clojure
+(gum :table :in (io/input-stream f) :height 10)
+```
+
+## gum* (low-level API)
 
 Convention:
 - The main command should be passed as a keyword or string to `:cmd`. Required
