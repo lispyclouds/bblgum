@@ -42,16 +42,16 @@ This lib only has _one_ public fns: `bblgum.core/gum`.
 Examples:
 ```clojure 
 ;; Command only:
-(gum :file)
+(b/gum :file)
 
 ;; Command with args:
-(gum :choose ["arg1" "arg2"])
+(b/gum :choose ["arg1" "arg2"])
 
 ;; Command with opts:
-(gum :file :directory true)
+(b/gum :file :directory true)
 
 ;; Command with opts and args:
-(gum :choose ["arg1" "arg2"] :header "Choose an option")
+(b/gum :choose ["arg1" "arg2"] :header "Choose an option")
 ```
 
 
@@ -73,7 +73,7 @@ Example with special options:
 
 #### input 
 ```clojure 
-(b/gum :choose ["foo" "bar" "baz"] :no-limit true)
+p(b/gum :choose ["foo" "bar" "baz"] :no-limit true)
 
 {:status 0 :result ("foo" "baz")}
 ```
