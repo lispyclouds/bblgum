@@ -40,7 +40,7 @@ This lib only has _one_ public fn: `bblgum.core/gum`.
 ```
 
 Examples:
-```clojure 
+```clojure
 ;; Command only:
 (b/gum :file)
 
@@ -61,7 +61,7 @@ There are several special opts, that are handled by the library:
 `:as` - Coerce the output. Currently supports :bool, :ignored or defaults to a seq of strings
 `:gum-path` - Path to the gum binary. Defaults to `gum`
 
-All other opts are passed to the CLI. Consult `gum CMD --help` to see available options.  
+All other opts are passed to the CLI. Consult `gum CMD --help` to see available options.
 To pass flags like `--directory` use `:directory true`. Always use full names of the options.
 
 Example with special options:
@@ -71,15 +71,15 @@ Example with special options:
 
 ### Usage Examples
 
-#### input 
-```clojure 
+#### input
+```clojure
 (b/gum :choose ["foo" "bar" "baz"] :no-limit true)
 
 {:status 0 :result ("foo" "baz")}
 ```
 
-#### write 
-```clojure 
+#### write
+```clojure
 (b/gum :write)
 ```
 
@@ -114,7 +114,7 @@ Example with special options:
 (b/gum :spin ["sleep" "5"] :spinner "line" :title "Buying Bubble Gum...")
 ```
 
-### table
+#### table
 
 ```clojure
 (b/gum :table :in (clojure.java.io/input-stream "flavours.csv"))
