@@ -93,7 +93,7 @@
   ([cmd args-or-opts]
    (gum* (prepare-cmd-map cmd args-or-opts)))
   ([cmd args & opts]
-   (gum* (prepare-cmd-map cmd args opts))))
+   (gum* (apply prepare-cmd-map cmd args opts))))
 
 (comment
   "Testing examples"
@@ -106,4 +106,5 @@
   (prepare-cmd-map {:cmd :table :in "some.in"})     ;; => {:cmd :table, :in "some.in"}
   (prepare-cmd-map :table :in "input" :height 10)   ;; => {:cmd :table, :args [], :in "input", :opts {:height 10}}
   (prepare-cmd-map :confirm ["Are you sure?"] :as :bool :negative "Never" :affirmative "Always") ;; => {:cmd :confirm, :args ["Are you sure?"], :as :bool, :opts {:affirmative "Always", :negative "Never"}}
+  (gum :confirm ["Це той файл?"] :as :bool :negative "Щось ні" :affirmative "Так!")
   )
