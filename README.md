@@ -15,12 +15,12 @@ This is intended for [babashka](https://babashka.org/) and JVM clojure and provi
 
 Add this to your `bb.edn` or `deps.edn`:
 ```edn
-{:deps {io.github.lispyclouds/bblgum {:git/sha "7ebae0e2231899fe2a6ad44bc9ef5fca64099fcd"}}}
+{:deps {io.github.lispyclouds/bblgum {:git/sha "d317297464adec860b9f6276e34809f9df21fdbe"}}}
 ```
 
 Sample babashka usage:
 ```console
-$ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "7ebae0e2231899fe2a6ad44bc9ef5fca64099fcd"}}}' \
+$ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "d317297464adec860b9f6276e34809f9df21fdbe"}}}' \
      -e "(require '[bblgum.core :as b]) (b/gum :input :placeholder \"User name:\")"
 ```
 
