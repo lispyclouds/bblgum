@@ -21,7 +21,7 @@ Add this to your `bb.edn` or `deps.edn`:
 Sample babashka usage:
 ```console
 $ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "7ebae0e2231899fe2a6ad44bc9ef5fca64099fcd"}}}' \
-     -e "(require '[bblgum.core :as b]) (b/gum {:cmd :input :opts {:placeholder \"User name:\"}})"
+     -e "(require '[bblgum.core :as b]) (b/gum :input :placeholder \"User name:\")"
 ```
 
 ## Interaction
