@@ -92,7 +92,7 @@
    (gum* (prepare-cmd-map cmd)))
   ([cmd args-or-opts]
    (gum* (prepare-cmd-map cmd args-or-opts)))
-  ([cmd args opts]
+  ([cmd args & opts]
    (gum* (prepare-cmd-map cmd args opts))))
 
 (comment
@@ -102,7 +102,8 @@
   (prepare-cmd-map :choose ["foo" "bar"])                        ;; => {:cmd :choose, :args ["foo" "bar"]}
   (prepare-cmd-map :choose ["foo" "bar"] :header "select a foo") ;; => {:cmd :choose, :args ["foo" "bar"], :opts {:header "select a foo"}}
   (prepare-cmd-map {:cmd :file :args ["src"] :directory true})   ;; => {:cmd :file, :args ["src"], :directory true}
-  (prepare-cmd-map :table :in "some.in" :height 10)              ;; => {:cmd :table, :args [], :in "some.in", :opts {:height 10}}
-  (prepare-cmd-map {:cmd :table :in "some.in"})                  ;; => {:cmd :table, :in "some.in"}
-  (prepare-cmd-map :table :in "input" :height 10)                ;; => {:cmd :table, :args [], :in "input", :opts {:height 10}}
+  (prepare-cmd-map :table :in "some.in" :height 10) ;; => {:cmd :table, :args [], :in "some.in", :opts {:height 10}}
+  (prepare-cmd-map {:cmd :table :in "some.in"})     ;; => {:cmd :table, :in "some.in"}
+  (prepare-cmd-map :table :in "input" :height 10)   ;; => {:cmd :table, :args [], :in "input", :opts {:height 10}}
+  (prepare-cmd-map :confirm ["Are you sure?"] :as :bool :negative "Never" :affirmative "Always") ;; => {:cmd :confirm, :args ["Are you sure?"], :as :bool, :opts {:affirmative "Always", :negative "Never"}}
   )
