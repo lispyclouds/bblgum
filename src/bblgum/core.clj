@@ -34,7 +34,9 @@
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   [cmd & [args & opts]]
-  (when-not (keyword? cmd) (throw (IllegalArgumentException. "cmd must be a keyword")))
+  (when-not
+      (or (keyword? cmd)
+          (string? cmd)) (throw (IllegalArgumentException. "cmd must be a keyword or a string")))
   (let [{:keys [cmd opts args in as gum-path]} (apply i/prepare-cmd-map cmd args opts)
         gum-path (or gum-path "gum")
         with-opts (->> opts
@@ -50,3 +52,4 @@
      :result (case as
                :bool (zero? exit)
                out)}))
+
