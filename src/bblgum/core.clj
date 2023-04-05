@@ -34,20 +34,19 @@
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   [cmd & [args & opts]]
-  (let [{:keys [cmd opts args in as gum-path]} (apply i/prepare-cmd-map cmd args opts)]
-    (when-not cmd
-      (throw (IllegalArgumentException. ":cmd must be provided or non-nil")))
-    (let [gum-path (or gum-path "gum")
-          with-opts (->> opts
-                         (map (fn [[opt value]]
-                                (str "--" (i/->str opt) "=" (i/multi-opt value))))
-                         (into [gum-path (i/->str cmd)]))
-          out (if (= :ignored as) :inherit :string)
-          args (if (or (empty? args) (= "--" (first args)))
-                 args
-                 (cons "--" args))
-          {:keys [exit out]} (i/exec (into with-opts args) in out)]
-      {:status exit
-       :result (case as
-                 :bool (zero? exit)
-                 out)})))
+  (when-not (keyword? cmd) (throw (IllegalArgumentException. "cmd must be a keyword")))
+  (let [{:keys [cmd opts args in as gum-path]} (apply i/prepare-cmd-map cmd args opts)
+        gum-path (or gum-path "gum")
+        with-opts (->> opts
+                       (map (fn [[opt value]]
+                              (str "--" (i/->str opt) "=" (i/multi-opt value))))
+                       (into [gum-path (i/->str cmd)]))
+        out (if (= :ignored as) :inherit :string)
+        args (if (or (empty? args) (= "--" (first args)))
+               args
+               (cons "--" args))
+        {:keys [exit out]} (i/exec (into with-opts args) in out)]
+    {:status exit
+     :result (case as
+               :bool (zero? exit)
+               out)}))
