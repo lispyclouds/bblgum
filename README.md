@@ -119,7 +119,6 @@ Example with special options:
 ```clojure
 (b/gum :table :in (clojure.java.io/input-stream "flavours.csv"))
 ```
-p
 
 All of the rest of the options and usecases _should work_ ™. Please raise issues/PRs for any improvements. Much appreciated!
 
