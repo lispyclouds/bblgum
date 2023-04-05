@@ -49,13 +49,13 @@
   (let [gum-path (or gum-path "gum")
         with-opts (->> opts
                        (map (fn [[opt value]]
-                              (str "--" (i/->str opt) "=" (i/multi-opt value))))
-                       (into [gum-path (i/->str cmd)]))
+                              (str "--" (->str opt) "=" (multi-opt value))))
+                       (into [gum-path (->str cmd)]))
         out (if (= :ignored as) :inherit :string)
         args (if (or (empty? args) (= "--" (first args)))
                args
                (cons "--" args))
-        {:keys [exit out]} (i/exec (into with-opts args) in out)]
+        {:keys [exit out]} (exec (into with-opts args) in out)]
     {:status exit
      :result (case as
                :bool (zero? exit)
