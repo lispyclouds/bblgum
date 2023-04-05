@@ -31,8 +31,8 @@
                        str/split-lines
                        (filter seq))))))
 
-(defn gum*
-  "Low level API. If you don't know why you are using `gum*` then you're probably looking for `gum`
+(defn run
+  "Low level API. If you don't know why you are using `run` then you're probably looking for `gum`
   Options map:
   cmd: The interaction command. Can be a keyword. Required
   opts: A map of options to be passed as optional params to gum
@@ -68,7 +68,7 @@
     (update fmted :opts merge opts)))
 
 (defn prepare-cmd-map
-  "Prepares command map to be passed to `gum*`. Tries to be smart and figure out what user wants."
+  "Prepares command map to be passed to `run`. Tries to be smart and figure out what user wants."
   ([cmd]
    (if (map? cmd)
      cmd
@@ -116,11 +116,11 @@
   status: The exit code from gum
   result: The output from the execution: seq of lines or coerced via :as."
   ([cmd]
-   (gum* (prepare-cmd-map cmd)))
+   (run (prepare-cmd-map cmd)))
   ([cmd args-or-opts]
-   (gum* (prepare-cmd-map cmd args-or-opts)))
+   (run (prepare-cmd-map cmd args-or-opts)))
   ([cmd args & opts]
-   (gum* (apply prepare-cmd-map cmd args opts))))
+   (run (apply prepare-cmd-map cmd args opts))))
 
 (comment
   "Testing examples"
