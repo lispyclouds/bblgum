@@ -120,7 +120,7 @@
   ([cmd args-or-opts]
    (gum* (prepare-cmd-map cmd args-or-opts)))
   ([cmd args & opts]
-   (gum* (apply i/prepare-cmd-map cmd args opts))))
+   (gum* (apply prepare-cmd-map cmd args opts))))
 
 (comment
   "Testing examples"
