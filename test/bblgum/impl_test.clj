@@ -46,5 +46,4 @@
     (t/is (= (i/prepare-cmd-map :table :in "input" :height 10)
              {:cmd :table, :args [], :in "input", :opts {:height 10}}))
     (t/is (= (i/prepare-cmd-map :confirm ["Are you sure?"] :as :bool :negative "Never" :affirmative "Always")
-             {:cmd :confirm, :args ["Are you sure?"], :as :bool, :opts {:affirmative "Always", :negative "Never"}}))
-    ))
+             {:cmd :confirm, :args ["Are you sure?"], :as :bool, :opts {:affirmative "Always", :negative "Never"}}))))
