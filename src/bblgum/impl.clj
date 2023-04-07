@@ -32,7 +32,8 @@
                        (filter seq))))))
 
 (defn run
-  "Low level API. If you don't know why you are using `run` then you're probably looking for `gum`
+  "Low level API.
+
   Options map:
   cmd: The interaction command. Can be a keyword. Required
   opts: A map of options to be passed as optional params to gum
@@ -61,7 +62,8 @@
                :bool (zero? exit)
                out)}))
 
-(defn prepare-options [m]
+(defn prepare-options
+  [m]
   (let [fmted-keys [:opts :in :as :gum-path]
         fmted (select-keys m fmted-keys)
         opts (apply dissoc m fmted-keys)]

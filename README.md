@@ -66,7 +66,7 @@ To pass flags like `--directory` use `:directory true`. Always use full names of
 
 Example with special options:
 ```clojure
-(gum :table :in (io/input-stream f) :height 10)
+(gum :table :in (clojure.java.io/input-stream f) :height 10)
 ```
 
 ### Usage Examples
