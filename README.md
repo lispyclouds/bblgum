@@ -54,7 +54,6 @@ Examples:
 (b/gum :choose ["arg1" "arg2"] :header "Choose an option")
 ```
 
-
 There are several special opts, that are handled by the library:
 
 `:in` - An input stream than can be passed to gum
@@ -63,6 +62,8 @@ There are several special opts, that are handled by the library:
 
 All other opts are passed to the CLI. Consult `gum CMD --help` to see available options.
 To pass flags like `--directory` use `:directory true`. Always use full names of the options.
+
+**Note**: In the event of a name collision with a special opt and a command opt, use the [low level API](https://github.com/lispyclouds/bblgum#low-level-api).
 
 Example with special options:
 ```clojure
