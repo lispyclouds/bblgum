@@ -89,6 +89,11 @@ Example with special options:
 (b/gum :filter :in (clojure.java.io/input-stream "flavours.txt"))
 
 (b/gum :filter :in (clojure.java.io/input-stream "flavours.txt") :no-limit true)
+
+;; Since bblgum uses babashka/process, the following are possible as well
+(b/gum :filter :in "a string that will be streamed into the stdin char by char")
+
+(b/gum :filter :in (clojure.string/join "\n" ["can" "be" "used" "as" "a" "filtering" "choose" "alternative"]))
 ```
 
 #### confirm
