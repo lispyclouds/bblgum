@@ -1,7 +1,7 @@
 # bblgum
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://choosealicense.com/licenses/mit/)
-[![bb compatible](https://raw.githubusercontent.com/babashka/babashka/master/logo/badge.svg)](https://babashka.org)
+[![bb compatible](https://raw.githubusercontent.com/babashka/babashka/master/logo/badge.svg)](https://book.babashka.org#badges)
 
 An _extremely_ tiny and simple wrapper around the awesome [gum](https://github.com/charmbracelet/gum).
 
