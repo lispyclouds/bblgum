@@ -8,20 +8,23 @@ An _extremely_ tiny and simple wrapper around the awesome [gum](https://github.c
 This is intended for [babashka](https://babashka.org/) and JVM clojure and provides an idiomatic and data driven wrapper around the CLI tool.
 
 ## Requirements
+
 - Gum should be [installed](https://github.com/charmbracelet/gum#installation)
 - Babashka or the Clojure JVM runtime, latest recommended
 
 ## Usage
 
 Add this to your `bb.edn` or `deps.edn`:
+
 ```edn
-{:deps {io.github.lispyclouds/bblgum {:git/sha "28efb3ce4c71738d0c3c9bdd965a291c5d3e7465"}}}
+{:deps {io.github.lispyclouds/bblgum {:git/sha "df647fb50f32e05b26e46e58d7249b4798e469e6"}}}
 ```
 
 Sample babashka usage:
+
 ```console
-$ bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "28efb3ce4c71738d0c3c9bdd965a291c5d3e7465"}}}' \
-     -e "(require '[bblgum.core :as b]) (b/gum :input :placeholder \"User name:\")"
+bb -Sdeps '{:deps {io.github.lispyclouds/bblgum {:git/sha "df647fb50f32e05b26e46e58d7249b4798e469e6"}}}' \
+   -e "(require '[bblgum.core :as b]) (b/gum :input :placeholder \"User name:\")"
 ```
 
 ## Interaction
@@ -32,6 +35,7 @@ Run `gum <cmd> --help` to discover all the params and args.
 This lib only has _one_ public fn: `bblgum.core/gum`.
 
 ## Standard Usage
+
 `gum` tries to closely mimic the usage of the CLI tool, so it works like `(gum :COMMAND)`,
 `(gum :COMMAND [ARGS])` or `(gum :COMMAND [ARGS] :OPTION VALUE :OPTION2 VALUE)`
 
@@ -40,6 +44,7 @@ This lib only has _one_ public fn: `bblgum.core/gum`.
 ```
 
 Examples:
+
 ```clojure
 ;; Command only:
 (b/gum :file)
@@ -66,6 +71,7 @@ To pass flags like `--directory` use `:directory true`. **Always use full names 
 **Note**: In the event of a name collision with a special opt and a command opt, use the [low level API](https://github.com/lispyclouds/bblgum#low-level-api).
 
 Example with special options:
+
 ```clojure
 (gum :table :in (clojure.java.io/input-stream f) :height 10)
 ```
@@ -73,6 +79,7 @@ Example with special options:
 ### Usage Examples
 
 #### input
+
 ```clojure
 (b/gum :choose ["foo" "bar" "baz"] :no-limit true)
 
@@ -80,11 +87,13 @@ Example with special options:
 ```
 
 #### write
+
 ```clojure
 (b/gum :write)
 ```
 
 #### filter
+
 ```clojure
 (b/gum :filter :in (clojure.java.io/input-stream "flavours.txt"))
 
@@ -132,14 +141,16 @@ All of the rest of the options and usecases _should work_ ™. Please raise issu
 
 - Since this uses gum which expects an interactive TTY like terminal, this is not possible to be used from editor REPLs like Conjure, CIDER, Calva etc **when jacked-in**.
   To use this from an editor REPL:
-    - First start the REPL in a terminal, for example in bb for nREPL on port 1667: `bb nrepl-server 1667`.
-    - Connect to the port from the editor of your choice, for example with neovim and conjure: `:ConjureConnect 1667`.
-    - Perform the usual REPL interactions and all the gum output would appear on the terminal and not your editor but the result should be on the editor as expected.
+  - First start the REPL in a terminal, for example in bb for nREPL on port 1667: `bb nrepl-server 1667`.
+  - Connect to the port from the editor of your choice, for example with neovim and conjure: `:ConjureConnect 1667`.
+  - Perform the usual REPL interactions and all the gum output would appear on the terminal and not your editor but the result should be on the editor as expected.
 
 ## Low-level API
+
 This was standard in previous versions of gum, we kept it for full backward compatibility.
 
 Convention:
+
 - The main command should be passed as a keyword or string to `:cmd`. Required
 - Passing opts:
   - The --opts are to be passed as `:opts`
@@ -159,7 +170,6 @@ Convention:
 The `gum` fn returns a map of exit status of calling gum and the result either as a seq of lines or coerced via `:as`.
 Exceptions are not thrown unless calling gum itself does, the status code is intended for programming for failures.
 
-
 ```clojure
 (b/gum {:cmd :choose
         :opts {:no-limit true}
@@ -167,7 +177,6 @@ Exceptions are not thrown unless calling gum itself does, the status code is int
 
 {:status 0 :result ("foo" "baz")}
 ```
-
 
 ## License
 
