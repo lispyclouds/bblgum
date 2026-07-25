@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: "Checkout code"
-        uses: "actions/checkout@v5"
+        uses: "actions/checkout@v7"
 
       - name: "Setup Java"
         uses: "actions/setup-java@v5"
@@ -26,7 +26,7 @@ jobs:
           bb: "latest"
 
       - name: "Apply Cache"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v6"
         with:
           path: |
             ~/.m2/repository
